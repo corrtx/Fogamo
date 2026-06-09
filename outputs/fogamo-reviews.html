@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fogamo | Відгуки</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text: #241815;
+      --muted: #6d5750;
+      --card: rgba(255, 255, 255, 0.96);
+      --line: rgba(36, 24, 21, 0.10);
+      --accent: #a1552d;
+      --accent-dark: #733518;
+      --shadow: 0 24px 60px rgba(60, 28, 14, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 240, 216, 0.75), transparent 34%),
+        radial-gradient(circle at 82% 18%, rgba(182, 98, 59, 0.10), transparent 24%),
+        linear-gradient(180deg, #fffdfb 0%, #f7efe6 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 0;
+      opacity: 0;
+      transform: translateY(26px) scale(0.988);
+      animation: pageReveal 1.05s cubic-bezier(.16,.84,.24,1) forwards;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 251, 245, 0.76);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: inherit;
+    }
+    .brand-mark {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      border: 2px solid rgba(36, 24, 21, 0.7);
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+    }
+    .brand-name {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .brand-note {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+    .back {
+      padding: 11px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(36, 24, 21, 0.14);
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.78);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .back:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 18px 34px rgba(115, 53, 24, 0.12);
+    }
+    .shell {
+      width: min(1380px, calc(100% - 32px));
+      margin: 18px auto 0;
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+    .panel {
+      border: 1px solid rgba(255, 255, 255, 0.52);
+      border-radius: 32px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 32px;
+    }
+    .hero-copy {
+      animation: rise .8s ease .08s both;
+    }
+    .hero-stats {
+      animation: rise .8s ease .18s both;
+    }
+    .list-panel {
+      animation: rise .8s ease .28s both;
+    }
+    .form-panel {
+      animation: rise .8s ease .38s both;
+    }
+    .hero {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+    .hero-copy,
+    .hero-stats,
+    .form-panel,
+    .list-panel {
+      min-height: 100%;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-dark);
+      font-size: .88rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .eyebrow::before { content: ""; width: 38px; height: 1px; background: currentColor; }
+    h1, h2 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+    }
+    h1 {
+      font-size: clamp(3.2rem, 6vw, 6rem);
+      line-height: .92;
+      letter-spacing: -.05em;
+      margin-bottom: 14px;
+    }
+    .lead {
+      margin: 0;
+      max-width: 720px;
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1.08rem;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .stat {
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.82);
+    }
+    .stat strong {
+      display: block;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 2.6rem;
+      line-height: .9;
+      margin-bottom: 8px;
+    }
+    .stat span {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .rating-overview {
+      margin-top: 14px;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.88), rgba(250,244,237,0.96));
+    }
+    .stars {
+      color: #c87a2d;
+      letter-spacing: .1em;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    .breakdown {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 34px 1fr 40px;
+      gap: 10px;
+      align-items: center;
+      font-size: .95rem;
+      color: var(--muted);
+    }
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(36,24,21,0.08);
+      overflow: hidden;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--accent), #c88446);
+      width: 0%;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+      gap: 18px;
+      grid-column: 1 / -1;
+    }
+    .list-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .muted {
+      color: var(--muted);
+      line-height: 1.8;
+      margin: 0;
+    }
+    .empty {
+      padding: 24px;
+      border-radius: 24px;
+      border: 1px dashed rgba(36,24,21,0.18);
+      background: rgba(255,255,255,0.78);
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+    .reviews-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .review {
+      padding: 20px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+    }
+    .review-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+    .review-name {
+      font-weight: 700;
+    }
+    .review-stars {
+      color: #c87a2d;
+      letter-spacing: .08em;
+      font-size: .95rem;
+      white-space: nowrap;
+    }
+    .review p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    form {
+      display: grid;
+      gap: 14px;
+    }
+    label {
+      display: grid;
+      gap: 8px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: .95rem;
+    }
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(36,24,21,0.12);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.92);
+      color: var(--text);
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.24s ease, box-shadow 0.24s ease, transform 0.24s ease;
+    }
+    textarea { min-height: 140px; resize: vertical; }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(161, 85, 45, 0.4);
+      box-shadow: 0 0 0 4px rgba(161, 85, 45, 0.08);
+    }
+    .rating-inputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .rating-inputs input { display: none; }
+    .rating-inputs label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 52px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(36,24,21,0.12);
+      background: rgba(255,255,255,0.84);
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+    }
+    .rating-inputs input:checked + label {
+      background: rgba(161, 85, 45, 0.12);
+      color: var(--accent-dark);
+      box-shadow: 0 14px 28px rgba(115, 53, 24, 0.12);
+      transform: translateY(-2px);
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 22px;
+      border: 0;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      color: #fff8f0;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      box-shadow: 0 16px 34px rgba(115, 53, 24, 0.18);
+      cursor: pointer;
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+      justify-self: start;
+    }
+    .button:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 22px 42px rgba(115, 53, 24, 0.22);
+    }
+    .hint {
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .hidden { display: none; }
+    .fade-in {
+      animation: rise .7s ease both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pageReveal {
+      0% { opacity: 0; transform: translateY(26px) scale(0.988); }
+      60% { opacity: 1; transform: translateY(-6px) scale(1.002); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @media (max-width: 980px) {
+      .shell,
+      .hero,
+      .split {
+        grid-template-columns: 1fr;
+      }
+      .shell { width: min(100%, calc(100% - 24px)); }
+    }
+    @media (max-width: 720px) {
+      .topbar { padding: 14px 16px; flex-direction: column; align-items: flex-start; }
+      .panel { padding: 22px; border-radius: 26px; }
+      h1 { font-size: 3rem; }
+      .stats-grid { grid-template-columns: 1fr; }
+      .list-head { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="fogamo-site.html">
+        <div class="brand-mark">FG</div>
+        <div>
+          <p class="brand-name">Fogamo</p>
+          <p class="brand-note">Відгуки та оцінки</p>
+        </div>
+      </a>
+      <a class="back" href="fogamo-site.html">На головну</a>
+    </header>
+
+    <main class="shell">
+      <section class="hero">
+        <div class="panel hero-copy">
+          <div class="eyebrow">Відгуки</div>
+          <h1>Що кажуть про Fogamo</h1>
+          <p class="lead">Тут зберігаються оцінки клієнтів. Поки що відгуків немає, але ти можеш залишити перший, і він залишиться на цій сторінці.</p>
+        </div>
+        <div class="panel hero-stats">
+          <div class="stats-grid">
+            <div class="stat">
+              <strong id="avg-rating">0.0</strong>
+              <span>Середня оцінка</span>
+            </div>
+            <div class="stat">
+              <strong id="total-count">0</strong>
+              <span>Всього оцінок</span>
+            </div>
+            <div class="stat">
+              <strong id="five-count">0</strong>
+              <span>Оцінок 5★</span>
+            </div>
+            <div class="stat">
+              <strong id="reviews-count">0</strong>
+              <span>Відгуків</span>
+            </div>
+          </div>
+          <div class="rating-overview">
+            <div class="stars" id="stars-line">☆☆☆☆☆</div>
+            <p class="muted">Рейтинг 1–5 на основі всіх збережених відгуків.</p>
+            <div class="breakdown" id="breakdown"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="split">
+        <div class="panel list-panel">
+          <div class="list-head">
+            <div>
+              <div class="eyebrow">Список</div>
+              <h2>Відгуки клієнтів</h2>
+            </div>
+            <p class="muted">Нові оцінки з'являються нижче одразу після відправлення.</p>
+          </div>
+          <div id="empty-state" class="empty">Поки що відгуків немає. Будеш першим?</div>
+          <div class="reviews-list" id="reviews-list"></div>
+        </div>
+
+        <div class="panel form-panel">
+          <div class="eyebrow">Новий відгук</div>
+          <h2>Залиш свою оцінку</h2>
+          <p class="muted" style="margin: 12px 0 18px;">Після відправлення відгук збережеться в браузері й залишиться тут.</p>
+          <form id="review-form">
+            <label>
+              Ім'я
+              <input id="review-name" type="text" placeholder="Наприклад, Анна" required>
+            </label>
+            <label>
+              Оцінка
+              <div class="rating-inputs">
+                <input type="radio" name="rating" id="r5" value="5" checked><label for="r5">5★</label>
+                <input type="radio" name="rating" id="r4" value="4"><label for="r4">4★</label>
+                <input type="radio" name="rating" id="r3" value="3"><label for="r3">3★</label>
+                <input type="radio" name="rating" id="r2" value="2"><label for="r2">2★</label>
+                <input type="radio" name="rating" id="r1" value="1"><label for="r1">1★</label>
+              </div>
+            </label>
+            <label>
+              Текст відгуку
+              <textarea id="review-text" placeholder="Що сподобалось найбільше?" required></textarea>
+            </label>
+            <button class="button" type="submit">Залишити відгук</button>
+            <p class="hint">Підказка: можна написати коротко, але чесно. Відгук збережеться автоматично.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const storageKey = 'fogamo-reviews';
+    const form = document.getElementById('review-form');
+    const list = document.getElementById('reviews-list');
+    const emptyState = document.getElementById('empty-state');
+    const breakdown = document.getElementById('breakdown');
+    const avgRating = document.getElementById('avg-rating');
+    const totalCount = document.getElementById('total-count');
+    const fiveCount = document.getElementById('five-count');
+    const reviewsCount = document.getElementById('reviews-count');
+    const starsLine = document.getElementById('stars-line');
+
+    const seed = [];
+
+    function loadReviews() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        const parsed = raw ? JSON.parse(raw) : seed;
+        return Array.isArray(parsed) ? parsed : seed;
+      } catch (error) {
+        return seed;
+      }
+    }
+
+    function saveReviews(reviews) {
+      localStorage.setItem(storageKey, JSON.stringify(reviews));
+    }
+
+    function render() {
+      const reviews = loadReviews();
+      const total = reviews.length;
+      const sum = reviews.reduce((acc, item) => acc + Number(item.rating || 0), 0);
+      const avg = total ? (sum / total) : 0;
+      const counts = [1, 2, 3, 4, 5].map((rating) => reviews.filter((item) => Number(item.rating) === rating).length);
+
+      avgRating.textContent = avg ? avg.toFixed(1) : '0.0';
+      totalCount.textContent = total;
+      fiveCount.textContent = counts[4] || 0;
+      reviewsCount.textContent = total;
+      const rounded = Math.max(0, Math.min(5, Math.round(avg)));
+      starsLine.textContent = '★'.repeat(rounded) + '☆'.repeat(5 - rounded);
+
+      breakdown.innerHTML = [5, 4, 3, 2, 1].map((rating) => {
+        const count = counts[rating - 1];
+        const pct = total ? Math.round((count / total) * 100) : 0;
+        return `
+          <div class="row">
+            <span>${rating}★</span>
+            <div class="bar"><span style="width:${pct}%"></span></div>
+            <span>${count}</span>
+          </div>
+        `;
+      }).join('');
+
+      if (total === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      list.innerHTML = reviews
+        .slice()
+        .reverse()
+        .map((item) => `
+          <article class="review fade-in">
+            <div class="review-top">
+              <div>
+                <div class="review-name">${escapeHtml(item.name)}</div>
+                <div class="muted">${new Date(item.createdAt).toLocaleDateString('uk-UA')}</div>
+              </div>
+              <div class="review-stars">${'★'.repeat(Number(item.rating))}${'☆'.repeat(5 - Number(item.rating))}</div>
+            </div>
+            <p>${escapeHtml(item.text)}</p>
+          </article>
+        `)
+        .join('');
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('review-name').value.trim();
+      const text = document.getElementById('review-text').value.trim();
+      const ratingInput = form.querySelector('input[name="rating"]:checked');
+      if (!name || !text || !ratingInput) return;
+
+      const reviews = loadReviews();
+      reviews.push({
+        name,
+        text,
+        rating: Number(ratingInput.value),
+        createdAt: new Date().toISOString()
+      });
+      saveReviews(reviews);
+      form.reset();
+      document.getElementById('r5').checked = true;
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>

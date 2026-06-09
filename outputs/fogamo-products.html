@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fogamo | Каталог</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --card: rgba(255, 255, 255, 0.98);
+      --text: #241815;
+      --muted: #6d5750;
+      --accent: #a1552d;
+      --accent-dark: #733518;
+      --line: rgba(36, 24, 21, 0.12);
+      --shadow: none;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fffdfb 0%, #ffffff 100%);
+      min-height: 100vh;
+    }
+    .page {
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+    .topbar, .panel, .product-card {
+      border: 1px solid rgba(36, 24, 21, 0.08);
+      border-radius: 0;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .topbar {
+      display:flex; justify-content:space-between; align-items:center; gap:16px;
+      padding: 16px 22px; margin-bottom: 0;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+    }
+    .brand { display:flex; align-items:center; gap:14px; }
+    .brand-mark {
+      width:58px; height:58px; border-radius:50%; display:grid; place-items:center;
+      border: 2px solid rgba(36, 24, 21, 0.7); color:var(--text);
+      background: transparent;
+      font-family:"Cormorant Garamond", serif; font-size:1.55rem; font-weight:700;
+    }
+    .brand-name {
+      margin:0; font-family:"Cormorant Garamond", serif; font-size:2rem; letter-spacing:.08em; text-transform:uppercase;
+    }
+    .brand-note { margin:2px 0 0; color:var(--muted); font-size:.94rem; }
+    .back {
+      padding: 11px 18px; border-radius: 999px; border: 1px solid rgba(36, 24, 21, 0.16); background: transparent; color: var(--text);
+      text-decoration:none; font-weight:700;
+      transition: transform 0.28s ease, box-shadow 0.28s ease, color 0.28s ease, background 0.28s ease;
+    }
+    .back:hover {
+      transform: translateY(-4px) scale(1.06);
+      color: var(--accent-dark);
+      background: transparent;
+      text-shadow: 0 0 18px rgba(161, 85, 45, 0.22);
+      box-shadow: none;
+    }
+    .panel {
+      padding: 34px;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      border-left: 0;
+      border-right: 0;
+      opacity: 0;
+      transform: translateY(28px);
+      animation: panelRise 0.85s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; margin-bottom:18px; color:var(--accent-dark);
+      font-size:.9rem; letter-spacing:.14em; text-transform:uppercase;
+    }
+    .eyebrow::before { content:""; width:38px; height:1px; background:currentColor; }
+    h1, h2 { margin:0; font-family:"Cormorant Garamond", serif; font-weight:600; }
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 10px; }
+    .sub { margin:0 0 24px; color:var(--muted); line-height:1.8; max-width:700px; }
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 26px;
+    }
+    .filter-btn {
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(36, 24, 21, 0.12);
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--text);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+    .filter-btn:hover,
+    .filter-btn.is-active {
+      transform: translateY(-3px) scale(1.03);
+      background: rgba(255, 250, 244, 0.95);
+      box-shadow: 0 14px 30px rgba(115, 53, 24, 0.12);
+    }
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .product-card {
+      position: relative;
+      padding: 26px;
+      min-height: 450px;
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(250,244,237,0.98));
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(67, 33, 17, 0.08);
+      transition: transform 0.28s ease, box-shadow 0.28s ease;
+      opacity: 0;
+      animation: rowRise 0.7s cubic-bezier(.2,.8,.2,1) forwards;
+    }
+    .product-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 26px 52px rgba(67, 33, 17, 0.12);
+    }
+    .product-card.is-hidden {
+      display: none;
+    }
+    .product-card:nth-child(1) { animation-delay: 0.12s; }
+    .product-card:nth-child(2) { animation-delay: 0.18s; }
+    .product-card:nth-child(3) { animation-delay: 0.24s; }
+    .product-card:nth-child(4) { animation-delay: 0.30s; }
+    .product-card:nth-child(5) { animation-delay: 0.36s; }
+    .product-card:nth-child(6) { animation-delay: 0.42s; }
+    .product-card:nth-child(7) { animation-delay: 0.48s; }
+    .product-card:nth-child(8) { animation-delay: 0.54s; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: start;
+      margin-bottom: 16px;
+    }
+    .badge {
+      display: inline-flex;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(161, 85, 45, 0.12);
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .price { color: var(--text); font-weight: 700; white-space: nowrap; }
+    .product-media {
+      display: grid;
+      place-items: center;
+      margin: -2px 0 16px;
+      min-height: 260px;
+      background: transparent;
+    }
+    .product-media img {
+      width: auto;
+      max-width: 260px;
+      max-height: 260px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      mix-blend-mode: multiply;
+      filter:
+        drop-shadow(0 16px 28px rgba(49, 28, 21, 0.16))
+        drop-shadow(0 0 34px rgba(255, 222, 182, 0.32));
+      transform: scale(1.18);
+    }
+    .product-media--soft {
+      border-radius: 24px;
+      background: radial-gradient(circle at 50% 40%, rgba(196, 127, 73, 0.18), transparent 42%), linear-gradient(180deg, rgba(255,255,255,0.62), rgba(247,236,224,0.92));
+      border: 1px solid rgba(36, 24, 21, 0.06);
+    }
+    .product-media--soft::before {
+      content: "";
+      width: 104px;
+      height: 156px;
+      border-radius: 24px 24px 18px 18px;
+      background: linear-gradient(180deg, rgba(125,80,49,0.22), rgba(180,122,74,0.58));
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.3), 0 18px 30px rgba(70, 36, 18, 0.12);
+    }
+    .name { margin: 0 0 10px; font-family:"Cormorant Garamond", serif; font-size: 2rem; font-weight:600; }
+    .desc { margin: 0 0 16px; color: var(--muted); line-height: 1.75; }
+    .notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .notes span {
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(36,24,21,0.08);
+      background: rgba(255,255,255,0.7);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @keyframes panelRise {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes rowRise {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 720px) {
+      .page { width: 100%; }
+      .topbar { flex-direction:column; align-items:flex-start; }
+      .panel { padding: 22px; }
+      .filters { gap: 8px; }
+      .filter-btn { padding: 10px 14px; font-size: 0.92rem; }
+      .catalog-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div>
+          <p class="brand-name">Fogamo</p>
+          <p class="brand-note">Каталог ароматів</p>
+        </div>
+      </div>
+      <a class="back" href="fogamo-site.html">На головну</a>
+    </header>
+
+    <main class="panel">
+      <span class="eyebrow">Знайдено</span>
+      <h1>Товари</h1>
+      <p class="sub">Поки що базовий список для швидкого перегляду. Далі сюди підключимо повні картки й фільтрацію.</p>
+      <div class="filters" role="tablist" aria-label="Категорії парфумів">
+        <button class="filter-btn is-active" type="button" data-filter="all">Усі</button>
+        <button class="filter-btn" type="button" data-filter="male">Чоловічі</button>
+        <button class="filter-btn" type="button" data-filter="female">Жіночі</button>
+        <button class="filter-btn" type="button" data-filter="unisex">Унісекс</button>
+      </div>
+
+      <div class="catalog-grid">
+        <article class="product-card" data-category="male">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 390 грн</span></div>
+          <div class="product-media"><img src="amber-veil-cutout.png" alt="Amber Veil by Fogamo"></div>
+          <h2 class="name">Amber Veil</h2>
+          <p class="desc">Глибокий амбровий аромат із шафраном, чорним чаєм і кремовим сандалом.</p>
+          <div class="notes"><span>Амбра</span><span>Шафран</span><span>Сандал</span></div>
+          <div class="product-footer"><span>100 мл</span><span>Чоловічі</span></div>
+        </article>
+        <article class="product-card" data-category="female">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 180 грн</span></div>
+          <div class="product-media"><img src="velvet-bloom-cutout.png" alt="Velvet Bloom by Fogamo"></div>
+          <h2 class="name">Velvet Bloom</h2>
+          <p class="desc">М'яке квіткове серце з півонією, ірисом та ніжним мускусом.</p>
+          <div class="notes"><span>Півонія</span><span>Ірис</span><span>Мускус</span></div>
+          <div class="product-footer"><span>50 мл</span><span>Жіночі</span></div>
+        </article>
+        <article class="product-card" data-category="unisex">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 640 грн</span></div>
+          <div class="product-media"><img src="smoke-cedar-cutout.png" alt="Smoke Cedar by Fogamo"></div>
+          <h2 class="name">Smoke Cedar</h2>
+          <p class="desc">Деревний характер із кедром, шкірою, рожевим перцем і ладаном.</p>
+          <div class="notes"><span>Кедр</span><span>Шкіра</span><span>Ладан</span></div>
+          <div class="product-footer"><span>100 мл</span><span>Унісекс</span></div>
+        </article>
+        <article class="product-card" data-category="unisex">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 490 грн</span></div>
+          <div class="product-media"><img src="ember-nights-cutout.png" alt="Ember Nights by Fogamo"></div>
+          <h2 class="name">Ember Nights</h2>
+          <p class="desc">Теплий ванільно-амбровий аромат з м'яким східним шлейфом.</p>
+          <div class="notes"><span>Амбра</span><span>Ваніль</span><span>Деревина</span></div>
+          <div class="product-footer"><span>100 мл</span><span>Унісекс</span></div>
+        </article>
+        <article class="product-card" data-category="female">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 050 грн</span></div>
+          <div class="product-media"><img src="citrus-muse-cutout.png" alt="Citrus Muse by Fogamo"></div>
+          <h2 class="name">Citrus Muse</h2>
+          <p class="desc">Свіжий цитрусово-квітковий старт із легкою фужерною базою.</p>
+          <div class="notes"><span>Цитрус</span><span>Квіткові</span><span>Фужерні</span></div>
+          <div class="product-footer"><span>50 мл</span><span>Жіночі</span></div>
+        </article>
+        <article class="product-card" data-category="female">
+          <div class="card-top"><span class="badge">Хіт</span><span class="price">2 560 грн</span></div>
+          <div class="product-media"><img src="golden-haze-cutout.png" alt="Golden Haze by Fogamo"></div>
+          <h2 class="name">Golden Haze</h2>
+          <p class="desc">М'який сонячний аромат з медовими квітами, білим чаєм і теплою деревиною.</p>
+          <div class="notes"><span>Білий чай</span><span>Квіткові</span><span>Деревні</span></div>
+          <div class="product-footer"><span>100 мл</span><span>Жіночі</span></div>
+        </article>
+        <article class="product-card" data-category="unisex">
+          <div class="card-top"><span class="badge">Хіт</span><span class="price">2 330 грн</span></div>
+          <div class="product-media"><img src="night-silk-cutout.png" alt="Night Silk by Fogamo"></div>
+          <h2 class="name">Night Silk</h2>
+          <p class="desc">Глибока пряно-мускусна композиція з оксамитовою ваніллю та темним перцем.</p>
+          <div class="notes"><span>Мускус</span><span>Ваніль</span><span>Пряні</span></div>
+          <div class="product-footer"><span>50 мл</span><span>Унісекс</span></div>
+        </article>
+        <article class="product-card" data-category="male">
+          <div class="card-top"><span class="badge">Новинка</span><span class="price">2 720 грн</span></div>
+          <div class="product-media"><img src="forest-trace-cutout.png" alt="Forest Trace by Fogamo"></div>
+          <h2 class="name">Forest Trace</h2>
+          <p class="desc">Соковита зелень, кедрова кора та сухий ветивер для чистого впевненого шлейфу.</p>
+          <div class="notes"><span>Кедр</span><span>Ветивер</span><span>Зелені</span></div>
+          <div class="product-footer"><span>100 мл</span><span>Чоловічі</span></div>
+        </article>
+      </div>
+    </main>
+  </div>
+  <script>
+    const buttons = Array.from(document.querySelectorAll('.filter-btn'));
+    const rows = Array.from(document.querySelectorAll('.product-card'));
+
+    function applyFilter(filter) {
+      buttons.forEach((btn) => btn.classList.toggle('is-active', btn.dataset.filter === filter));
+      rows.forEach((row) => {
+        const match = filter === 'all' || row.dataset.category === filter;
+        row.classList.toggle('is-hidden', !match);
+      });
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+    });
+  </script>
+</body>
+</html>

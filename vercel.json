@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/", "destination": "/outputs/fogamo-site.html" },
+    { "source": "/catalog", "destination": "/outputs/fogamo-products.html" },
+    { "source": "/cart", "destination": "/outputs/fogamo-cart.html" },
+    { "source": "/reviews", "destination": "/outputs/fogamo-reviews.html" }
+  ]
+}
