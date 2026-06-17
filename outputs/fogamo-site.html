@@ -68,10 +68,10 @@
 
     .topbar {
       display: grid;
-      grid-template-columns: 1fr auto 1fr;
+      grid-template-columns: auto 1fr auto;
       align-items: center;
-      gap: 24px;
-      padding: 10px 26px;
+      gap: 18px;
+      padding: 10px 22px;
       margin-bottom: 0;
       border-bottom: 1px solid rgba(36, 24, 21, 0.12);
       border-radius: 0;
@@ -83,38 +83,42 @@
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 22px;
       min-width: 0;
     }
+    .topbar-left {
+      grid-column: 2;
+      justify-content: flex-start;
+    }
     .topbar-right {
+      grid-column: 3;
       justify-content: flex-end;
     }
     .topbar-link,
     .topbar-action {
       color: var(--text);
       text-decoration: none;
-      font-size: 0.98rem;
+      font-size: 0.92rem;
       font-weight: 600;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       white-space: nowrap;
       transition: transform 0.28s ease, box-shadow 0.28s ease, color 0.28s ease, background 0.28s ease;
     }
-    .topbar-link.is-sale {
-      color: #d77b69;
-    }
     .topbar-logo {
-      width: 72px;
-      height: 72px;
+      grid-column: 1;
+      justify-self: start;
+      width: 52px;
+      height: 52px;
       display: grid;
       place-items: center;
       border-radius: 50%;
-      border: 2px solid rgba(36, 24, 21, 0.7);
+      border: 1.5px solid rgba(36, 24, 21, 0.58);
       color: var(--text);
       font-family: "Cormorant Garamond", serif;
-      font-size: 2rem;
+      font-size: 1.45rem;
       font-weight: 700;
-      letter-spacing: -0.04em;
+      letter-spacing: -0.03em;
       transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
     }
     .hero-layout {
@@ -918,9 +922,10 @@
         position: sticky;
         top: 0;
         z-index: 40;
-        grid-template-columns: 1fr;
+        grid-template-columns: auto 1fr auto;
         justify-items: stretch;
-        gap: 12px;
+        align-items: center;
+        gap: 10px;
         padding: 10px 12px 14px;
         background: rgba(255, 250, 244, 0.94);
         backdrop-filter: blur(18px);
@@ -930,7 +935,16 @@
       .topbar-right {
         width: 100%;
       }
+      .topbar-logo {
+        grid-column: 1;
+        grid-row: 1;
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+      }
       .topbar-left {
+        grid-column: 1 / -1;
+        grid-row: 2;
         flex-wrap: nowrap;
         justify-content: flex-start;
         gap: 10px;
@@ -941,9 +955,12 @@
       }
       .topbar-left::-webkit-scrollbar { display: none; }
       .topbar-right {
+        grid-column: 3;
+        grid-row: 1;
+        width: auto;
         flex-wrap: nowrap;
-        justify-content: stretch;
-        gap: 8px;
+        justify-content: flex-end;
+        gap: 14px;
       }
       .topbar-link,
       .topbar-action {
@@ -955,20 +972,12 @@
         padding: 6px 0;
       }
       .topbar-action {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        flex: 1 1 0;
-        min-height: 42px;
-        padding: 10px 12px;
-        border: 1px solid rgba(36, 24, 21, 0.12);
-        border-radius: 999px;
-        background: rgba(255, 251, 245, 0.92);
-      }
-      .topbar-logo {
-        width: 56px;
-        height: 56px;
-        justify-self: center;
+        width: auto;
+        min-height: auto;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
       }
       .hero-copy,
       .hero-panel { border-radius: 26px; }
@@ -1225,7 +1234,7 @@
       }
       .topbar-link,
       .topbar-action {
-        font-size: 0.75rem;
+        font-size: 0.73rem;
       }
       .about-grid {
         grid-template-columns: 1fr;
@@ -1261,7 +1270,6 @@
         <a class="topbar-link" href="/reviews">Відгуки</a>
         <a class="topbar-link" href="#support">Блог</a>
         <a class="topbar-link" href="#hours">Інформація</a>
-        <a class="topbar-link is-sale" href="/catalog">Акції</a>
       </div>
 
       <a class="topbar-logo" href="/" aria-label="Fogamo home">FG</a>
