@@ -915,10 +915,16 @@
     @media (max-width: 720px) {
       .page { width: 100%; padding-top: 0; }
       .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
         grid-template-columns: 1fr;
         justify-items: stretch;
-        gap: 14px;
-        padding: 14px 16px 18px;
+        gap: 12px;
+        padding: 10px 12px 14px;
+        background: rgba(255, 250, 244, 0.94);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 8px 22px rgba(67, 33, 17, 0.08);
       }
       .topbar-left,
       .topbar-right {
@@ -927,37 +933,41 @@
       .topbar-left {
         flex-wrap: nowrap;
         justify-content: flex-start;
-        gap: 12px;
+        gap: 10px;
         overflow-x: auto;
-        padding-bottom: 4px;
+        padding-bottom: 2px;
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
       .topbar-left::-webkit-scrollbar { display: none; }
       .topbar-right {
         flex-wrap: nowrap;
-        justify-content: space-between;
-        gap: 10px;
+        justify-content: stretch;
+        gap: 8px;
       }
       .topbar-link,
       .topbar-action {
-        font-size: 0.83rem;
-        letter-spacing: 0.05em;
+        font-size: 0.79rem;
+        letter-spacing: 0.045em;
+      }
+      .topbar-link {
+        flex: 0 0 auto;
+        padding: 6px 0;
       }
       .topbar-action {
         display: inline-flex;
         align-items: center;
         justify-content: center;
         flex: 1 1 0;
-        min-height: 46px;
-        padding: 12px 14px;
+        min-height: 42px;
+        padding: 10px 12px;
         border: 1px solid rgba(36, 24, 21, 0.12);
         border-radius: 999px;
         background: rgba(255, 251, 245, 0.92);
       }
       .topbar-logo {
-        width: 64px;
-        height: 64px;
+        width: 56px;
+        height: 56px;
         justify-self: center;
       }
       .hero-copy,
@@ -1049,22 +1059,26 @@
       }
       .cards {
         display: flex;
-        gap: 14px;
+        gap: 10px;
         overflow-x: auto;
-        padding: 2px 4px 10px;
-        margin: 0 -4px;
-        scroll-snap-type: x proximity;
+        padding: 2px 0 10px;
+        margin: 0;
+        scroll-padding-inline: 0;
+        scroll-snap-type: x mandatory;
         -ms-overflow-style: none;
         scrollbar-width: none;
+        overscroll-behavior-x: contain;
+        -webkit-overflow-scrolling: touch;
       }
       .cards::-webkit-scrollbar { display: none; }
       .card {
-        flex: 0 0 84vw;
-        max-width: 84vw;
+        flex: 0 0 100%;
+        max-width: 100%;
         padding: 20px;
         min-height: auto;
         border-radius: 26px;
         scroll-snap-align: start;
+        scroll-snap-stop: always;
       }
       .card-media {
         min-height: 180px;
@@ -1205,11 +1219,13 @@
         margin-top: -40px;
         padding: 20px 18px 24px;
       }
-      .topbar-right {
-        flex-direction: column;
+      .topbar {
+        gap: 10px;
+        padding: 10px 10px 12px;
       }
+      .topbar-link,
       .topbar-action {
-        width: 100%;
+        font-size: 0.75rem;
       }
       .about-grid {
         grid-template-columns: 1fr;
@@ -1218,8 +1234,8 @@
         padding-bottom: 6px;
       }
       .card {
-        flex-basis: 88vw;
-        max-width: 88vw;
+        flex-basis: 100%;
+        max-width: 100%;
       }
       .card-media {
         min-height: 170px;
