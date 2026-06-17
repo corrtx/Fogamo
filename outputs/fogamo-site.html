@@ -916,42 +916,323 @@
       .page { width: 100%; padding-top: 0; }
       .topbar {
         grid-template-columns: 1fr;
-        justify-items: start;
-        gap: 18px;
-        padding: 16px 18px;
+        justify-items: stretch;
+        gap: 14px;
+        padding: 14px 16px 18px;
       }
       .topbar-left,
       .topbar-right {
-        flex-wrap: wrap;
+        width: 100%;
+      }
+      .topbar-left {
+        flex-wrap: nowrap;
         justify-content: flex-start;
-        gap: 14px 18px;
+        gap: 12px;
+        overflow-x: auto;
+        padding-bottom: 4px;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .topbar-left::-webkit-scrollbar { display: none; }
+      .topbar-right {
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .topbar-link,
+      .topbar-action {
+        font-size: 0.83rem;
+        letter-spacing: 0.05em;
+      }
+      .topbar-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1 1 0;
+        min-height: 46px;
+        padding: 12px 14px;
+        border: 1px solid rgba(36, 24, 21, 0.12);
+        border-radius: 999px;
+        background: rgba(255, 251, 245, 0.92);
+      }
+      .topbar-logo {
+        width: 64px;
+        height: 64px;
+        justify-self: center;
       }
       .hero-copy,
       .hero-panel { border-radius: 26px; }
       .hero-copy { padding: 28px 22px; }
       .spring-feature {
+        position: relative;
+        display: flex;
+        flex-direction: column;
         width: 100vw;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
         min-height: auto;
+        background:
+          linear-gradient(180deg, #f7efe6 0%, #f7efe6 54%, #ffffff 54%, #ffffff 100%);
       }
-      .spring-media { min-height: 56vh; }
-      .spring-copy { padding: 28px 22px; }
-      .spring-title { font-size: 2.9rem; }
-      .hero-facts,
-      .about-grid,
-      .cards { grid-template-columns: 1fr; }
+      .spring-media {
+        min-height: 42svh;
+        padding: 18px 18px 0;
+        background: transparent;
+      }
+      .spring-media img {
+        border-radius: 28px;
+        box-shadow: 0 24px 44px rgba(67, 33, 17, 0.14);
+      }
+      .spring-copy {
+        min-height: auto;
+        width: calc(100% - 32px);
+        margin: -46px auto 0;
+        padding: 24px 22px 28px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 22px 48px rgba(67, 33, 17, 0.12);
+      }
+      .spring-tag {
+        margin-bottom: 10px;
+        font-size: 0.8rem;
+      }
+      .spring-title {
+        margin-bottom: 12px;
+        font-size: clamp(2.8rem, 13vw, 4rem);
+      }
+      .spring-text {
+        max-width: 18ch;
+        font-size: 0.96rem;
+        line-height: 1.72;
+      }
+      .hero-facts { grid-template-columns: 1fr; }
       .catalog,
       .schedule,
-      .about { padding: 24px 20px; min-height: auto; }
-      .about > div:first-child h2 { font-size: 2.5rem; }
+      .about {
+        padding: 28px 16px;
+        min-height: auto;
+      }
+      .about > div:first-child h2 {
+        max-width: 12ch;
+        font-size: clamp(2.2rem, 10.6vw, 3rem);
+        line-height: 0.98;
+      }
+      .about-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .mini-card {
+        min-height: auto;
+        padding: 18px 16px;
+        border-radius: 22px;
+      }
+      .mini-card strong {
+        margin-bottom: 10px;
+        font-size: 1.08rem;
+      }
+      .mini-card p {
+        font-size: 0.9rem;
+        line-height: 1.65;
+      }
       h1 { font-size: 2.8rem; }
+      .catalog {
+        padding-bottom: 22px;
+      }
+      .section-head {
+        align-items: flex-start;
+        margin-bottom: 18px;
+      }
+      .section-head p {
+        max-width: none;
+        font-size: 0.95rem;
+        line-height: 1.68;
+      }
+      .cards {
+        display: flex;
+        gap: 14px;
+        overflow-x: auto;
+        padding: 2px 4px 10px;
+        margin: 0 -4px;
+        scroll-snap-type: x proximity;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      .cards::-webkit-scrollbar { display: none; }
+      .card {
+        flex: 0 0 84vw;
+        max-width: 84vw;
+        padding: 20px;
+        min-height: auto;
+        border-radius: 26px;
+        scroll-snap-align: start;
+      }
+      .card-media {
+        min-height: 180px;
+        margin: 0 0 12px;
+      }
+      .card-media img {
+        max-width: 190px;
+        max-height: 190px;
+      }
+      .card h3 {
+        font-size: 1.9rem;
+        margin-bottom: 10px;
+      }
+      .card p {
+        margin-bottom: 14px;
+        font-size: 0.94rem;
+        line-height: 1.62;
+      }
+      .notes {
+        margin-bottom: 14px;
+      }
+      .notes span {
+        padding: 7px 10px;
+        font-size: 0.78rem;
+      }
+      .card footer {
+        flex-wrap: wrap;
+        row-gap: 6px;
+        font-size: 0.88rem;
+      }
+      .schedule {
+        gap: 18px;
+        align-items: stretch;
+        padding-top: 26px;
+        padding-bottom: 26px;
+      }
+      .schedule > div:first-child h2 {
+        max-width: 10ch;
+        font-size: clamp(2.25rem, 10.8vw, 3rem);
+        line-height: 0.98;
+        margin-bottom: 14px;
+      }
+      .schedule > div:first-child p {
+        font-size: 0.98rem;
+        line-height: 1.7;
+      }
+      .hours-box {
+        min-height: auto;
+        padding: 24px 20px;
+        border-radius: 28px;
+      }
+      .hours-box small {
+        font-size: 0.82rem;
+        margin-bottom: 10px;
+      }
+      .hours-box strong {
+        font-size: clamp(3.2rem, 16vw, 4.6rem);
+        line-height: 0.92;
+        margin-bottom: 12px;
+      }
+      .hours-box p {
+        font-size: 0.95rem;
+        line-height: 1.68;
+      }
+      .hours-list { gap: 12px; }
+      .hours-row {
+        align-items: flex-start;
+        font-size: 0.92rem;
+      }
       .bottle-art { min-height: 350px; }
-      .brand-footer-col,
-      .footer-meta { padding-left: 24px; padding-right: 24px; }
-      .subscribe-form { margin-bottom: 40px; }
+      .brand-footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .brand-footer-col {
+        padding: 22px 16px;
+      }
+      .brand-footer-col:first-child {
+        grid-column: 1 / -1;
+      }
+      .subscribe-title {
+        font-size: 1.08rem;
+        line-height: 1.15;
+      }
+      .subscribe-text {
+        margin-bottom: 16px;
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      .subscribe-form {
+        margin-bottom: 18px;
+        max-width: none;
+      }
+      .subscribe-form input {
+        font-size: 0.9rem;
+      }
       .brand-footer { min-height: auto; }
       .brand-footer-grid { min-height: auto; }
+      .brand-footer h3 {
+        margin-bottom: 14px;
+        font-size: 0.95rem;
+      }
+      .brand-footer p,
+      .brand-footer li,
+      .brand-footer a,
+      .brand-footer span {
+        font-size: 0.88rem;
+        line-height: 1.55;
+      }
+      .footer-list,
+      .footer-contact {
+        gap: 6px;
+      }
+      .footer-meta {
+        padding: 18px 16px;
+        gap: 12px;
+      }
+      .footer-socials {
+        gap: 10px;
+      }
+      .social-pill {
+        width: 42px;
+        height: 42px;
+      }
+      .footer-brandline { font-size: 1.35rem; }
+      .footer-brandmark {
+        width: 42px;
+        height: 42px;
+      }
+    }
+    @media (max-width: 480px) {
+      .spring-media {
+        min-height: 34svh;
+        padding: 14px 14px 0;
+      }
+      .spring-copy {
+        width: calc(100% - 24px);
+        margin-top: -40px;
+        padding: 20px 18px 24px;
+      }
+      .topbar-right {
+        flex-direction: column;
+      }
+      .topbar-action {
+        width: 100%;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+      .cards {
+        padding-bottom: 6px;
+      }
+      .card {
+        flex-basis: 88vw;
+        max-width: 88vw;
+      }
+      .card-media {
+        min-height: 170px;
+      }
+      .hours-box {
+        padding: 22px 18px;
+      }
+      .brand-footer-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand-footer-col:first-child {
+        grid-column: auto;
+      }
     }
   </style>
 </head>

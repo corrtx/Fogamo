@@ -384,10 +384,28 @@
     }
     @media (max-width: 720px) {
       .topbar { padding: 14px 16px; flex-direction: column; align-items: flex-start; }
+      .back {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+      }
+      .shell {
+        width: min(100%, calc(100% - 16px));
+        gap: 14px;
+        margin-top: 14px;
+      }
       .panel { padding: 22px; border-radius: 26px; }
       h1 { font-size: 3rem; }
+      .lead {
+        font-size: 1rem;
+        line-height: 1.78;
+      }
       .stats-grid { grid-template-columns: 1fr; }
       .list-head { flex-direction: column; align-items: flex-start; }
+      .button {
+        width: 100%;
+        justify-self: stretch;
+      }
     }
   </style>
 </head>

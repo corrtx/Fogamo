@@ -225,11 +225,76 @@
     }
     @media (max-width: 720px) {
       .page { width: 100%; }
-      .topbar { flex-direction:column; align-items:flex-start; }
-      .panel { padding: 22px; }
-      .filters { gap: 8px; }
-      .filter-btn { padding: 10px 14px; font-size: 0.92rem; }
-      .catalog-grid { grid-template-columns: 1fr; }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 14px 16px 18px;
+      }
+      .brand-mark {
+        width: 52px;
+        height: 52px;
+        font-size: 1.42rem;
+      }
+      .brand-note { font-size: 0.88rem; }
+      .back {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+      }
+      .panel { padding: 20px 16px 28px; }
+      h1 { font-size: clamp(2.5rem, 14vw, 3.4rem); }
+      .sub {
+        margin-bottom: 18px;
+        font-size: 0.98rem;
+        line-height: 1.72;
+      }
+      .filters {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+      .filter-btn {
+        display: inline-flex;
+        justify-content: center;
+        width: 100%;
+        padding: 11px 12px;
+        font-size: 0.9rem;
+      }
+      .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .product-card {
+        padding: 22px;
+        min-height: auto;
+        border-radius: 26px;
+      }
+      .product-media {
+        min-height: 220px;
+        margin: 6px 0 10px;
+      }
+      .product-media img {
+        max-width: 220px;
+        max-height: 220px;
+        transform: scale(1.08);
+      }
+      .name { font-size: 2.1rem; }
+      .desc {
+        font-size: 0.98rem;
+        line-height: 1.7;
+      }
+      .product-footer {
+        flex-wrap: wrap;
+        row-gap: 6px;
+        font-size: 0.88rem;
+      }
+    }
+    @media (max-width: 420px) {
+      .filters { grid-template-columns: 1fr; }
+      .product-media {
+        min-height: 200px;
+      }
     }
   </style>
 </head>
