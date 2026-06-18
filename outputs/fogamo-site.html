@@ -71,14 +71,14 @@
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      gap: 18px;
-      padding: 10px 22px;
+      gap: 24px;
+      padding: 14px 28px;
       margin-bottom: 0;
       border-bottom: 1px solid rgba(36, 24, 21, 0.12);
       border-radius: 0;
-      background: rgba(255, 251, 245, 0.72);
-      backdrop-filter: blur(12px);
-      box-shadow: none;
+      background: linear-gradient(180deg, rgba(255, 251, 245, 0.96), rgba(255, 248, 241, 0.92));
+      backdrop-filter: blur(14px);
+      box-shadow: 0 14px 34px rgba(67, 33, 17, 0.06);
     }
     .topbar-menu {
       display: none;
@@ -87,7 +87,7 @@
     .topbar-right {
       display: flex;
       align-items: center;
-      gap: 22px;
+      gap: 26px;
       min-width: 0;
     }
     .topbar-left {
@@ -102,31 +102,70 @@
     .topbar-action {
       color: var(--text);
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       white-space: nowrap;
       transition: transform 0.28s ease, box-shadow 0.28s ease, color 0.28s ease, background 0.28s ease;
     }
+    .topbar-link {
+      position: relative;
+      padding-bottom: 6px;
+    }
+    .topbar-link::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: 0;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.5;
+      transition: right 0.28s ease;
+    }
     .topbar-logo {
       grid-column: 2;
       justify-self: center;
-      width: 52px;
-      height: 52px;
+      width: 58px;
+      height: 58px;
       display: grid;
       place-items: center;
       border-radius: 50%;
       border: 1.5px solid rgba(36, 24, 21, 0.58);
       color: var(--text);
       font-family: "Cormorant Garamond", serif;
-      font-size: 1.45rem;
+      font-size: 1.62rem;
       font-weight: 700;
       letter-spacing: -0.03em;
       transition: transform 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
     }
-    .topbar-action-emoji {
-      display: none;
+    .topbar-action-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto;
+    }
+    .topbar-action-icon svg {
+      width: 20px;
+      height: 20px;
+      display: block;
+      stroke: currentColor;
+      stroke-width: 1.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+    .topbar-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+    }
+    .topbar-action-label {
+      display: inline-block;
     }
     .mobile-drawer,
     .drawer-backdrop {
@@ -213,6 +252,9 @@
       text-shadow: 0 0 18px rgba(161, 85, 45, 0.22);
       box-shadow: none;
       background: transparent;
+    }
+    .topbar-link:hover::after {
+      right: 0;
     }
     .topbar-logo:hover {
       transform: translateY(-4px) scale(1.06);
@@ -301,29 +343,32 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: clamp(36px, 7vw, 96px);
-      background: #ffffff;
+      padding: clamp(52px, 7vw, 110px);
+      background:
+        radial-gradient(circle at 20% 18%, rgba(245, 228, 204, 0.36), transparent 28%),
+        linear-gradient(180deg, #fffefe 0%, #fffaf5 100%);
     }
     .spring-tag {
-      margin-bottom: 18px;
+      margin-bottom: 22px;
       color: #3a3a3a;
-      font-size: 0.82rem;
+      font-size: 0.86rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
     }
     .spring-title {
-      margin: 0 0 20px;
-      font-size: clamp(3.4rem, 6.4vw, 6.4rem);
-      line-height: 0.9;
-      letter-spacing: -0.05em;
+      margin: 0 0 26px;
+      font-size: clamp(4.6rem, 7vw, 7.4rem);
+      line-height: 0.88;
+      letter-spacing: -0.06em;
     }
     .spring-text {
-      max-width: 620px;
+      max-width: 540px;
       margin: 0;
       color: #77706b;
-      font-size: 1.08rem;
-      line-height: 1.95;
+      font-size: 1.16rem;
+      line-height: 1.82;
+      text-wrap: balance;
     }
     .about,
     .catalog,
@@ -898,19 +943,185 @@
       .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 1024px) {
+      body.menu-open {
+        overflow: hidden;
+      }
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 18px;
+        background: #fffaf5;
+        backdrop-filter: none;
+        box-shadow: 0 8px 22px rgba(67, 33, 17, 0.08);
+      }
+      .topbar-menu {
+        grid-column: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--text);
+        cursor: pointer;
+        position: relative;
+        z-index: 3;
+      }
+      .topbar-menu span,
+      .topbar-menu::before,
+      .topbar-menu::after {
+        content: "";
+        display: block;
+        width: 24px;
+        height: 2px;
+        border-radius: 999px;
+        background: currentColor;
+        transition: transform 0.25s ease, opacity 0.25s ease;
+      }
+      .topbar-menu span {
+        position: relative;
+      }
+      .topbar-menu::before {
+        position: absolute;
+        transform: translateY(-7px);
+      }
+      .topbar-menu::after {
+        position: absolute;
+        transform: translateY(7px);
+      }
+      body.menu-open .topbar-menu span {
+        opacity: 0;
+      }
+      body.menu-open .topbar-menu::before {
+        transform: rotate(45deg);
+      }
+      body.menu-open .topbar-menu::after {
+        transform: rotate(-45deg);
+      }
+      .topbar-left {
+        display: none;
+      }
+      .topbar-logo {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+        border-width: 1px;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+      }
+      .topbar-right {
+        grid-column: 3;
+        justify-content: flex-end;
+        gap: 14px;
+        position: relative;
+        z-index: 3;
+      }
+      .topbar-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        font-size: 0;
+      }
+      .topbar-action-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 20px;
+      }
+      .topbar-action-icon svg {
+        width: 20px;
+        height: 20px;
+      }
+      .topbar-action-label {
+        display: none;
+      }
+      .drawer-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: #fffaf5;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.28s ease;
+        z-index: 44;
+      }
+      .mobile-drawer {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: min(72vw, 420px);
+        padding: 22px 24px 30px;
+        flex-direction: column;
+        gap: 20px;
+        background: #fffaf5;
+        box-shadow: 22px 0 48px rgba(67, 33, 17, 0.14);
+        transform: translateX(-102%);
+        transition: transform 0.3s ease;
+        z-index: 45;
+      }
+      body.menu-open .drawer-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      body.menu-open .mobile-drawer {
+        transform: translateX(0);
+      }
       .hero-layout,
       .hero,
-      .spring-feature,
       .about,
       .schedule,
       .brand-footer-grid { grid-template-columns: 1fr; }
       .hero-copy,
       .hero-panel,
-      .spring-media,
-      .spring-copy,
       .catalog,
       .schedule,
       .about { padding: 28px; }
+      .spring-feature {
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100svh - 67px);
+      }
+      .spring-media {
+        min-height: 50svh;
+        flex: 0 0 50svh;
+        padding: 0;
+      }
+      .spring-copy {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 34px 28px 40px;
+      }
+      .spring-title {
+        font-size: clamp(4rem, 9vw, 5.2rem);
+      }
+      .spring-text {
+        width: min(100%, 34ch);
+        max-width: none;
+        margin: 0 auto;
+        line-height: 1.5;
+        text-wrap: pretty;
+      }
       .about {
         min-height: auto;
         gap: 20px;
@@ -939,9 +1150,9 @@
         grid-template-columns: auto 1fr auto;
         align-items: center;
         gap: 8px;
-        padding: 10px 12px;
-        background: rgba(255, 250, 244, 0.94);
-        backdrop-filter: blur(18px);
+        padding: 10px 14px;
+        background: #fffaf5;
+        backdrop-filter: none;
         box-shadow: 0 8px 22px rgba(67, 33, 17, 0.08);
       }
       .topbar-menu {
@@ -956,6 +1167,8 @@
         background: transparent;
         color: var(--text);
         cursor: pointer;
+        position: relative;
+        z-index: 3;
       }
       .topbar-menu span,
       .topbar-menu::before,
@@ -989,11 +1202,17 @@
         transform: rotate(-45deg);
       }
       .topbar-logo {
-        grid-column: 2;
-        grid-row: 1;
-        width: 40px;
-        height: 40px;
-        font-size: 1.15rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        grid-column: auto;
+        grid-row: auto;
+        width: 34px;
+        height: 34px;
+        font-size: 0.98rem;
+        border-width: 1px;
+        transform: translate(-50%, -50%);
+        z-index: 2;
       }
       .topbar-left {
         display: none;
@@ -1004,7 +1223,9 @@
         width: auto;
         flex-wrap: nowrap;
         justify-content: flex-end;
-        gap: 10px;
+        gap: 12px;
+        position: relative;
+        z-index: 3;
       }
       .topbar-link,
       .topbar-action {
@@ -1015,19 +1236,21 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 36px;
-        min-width: 36px;
-        height: 36px;
+        width: 30px;
+        min-width: 30px;
+        height: 30px;
         padding: 0;
         border: 0;
         border-radius: 0;
         background: transparent;
         font-size: 0;
       }
-      .topbar-action-emoji {
-        display: inline-block;
-        font-size: 1.28rem;
-        line-height: 1;
+      .topbar-action-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 19px;
+        height: 19px;
       }
       .topbar-action-label {
         display: none;
@@ -1036,7 +1259,7 @@
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(27, 18, 14, 0.28);
+        background: #fffaf5;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.28s ease;
@@ -1048,12 +1271,12 @@
         top: 0;
         left: 0;
         bottom: 0;
-        width: min(84vw, 360px);
-        padding: 18px 18px 28px;
+        width: 100vw;
+        padding: 18px 20px 28px;
         flex-direction: column;
         gap: 20px;
-        background: rgba(255, 251, 245, 0.98);
-        box-shadow: 22px 0 48px rgba(67, 33, 17, 0.14);
+        background: #fffaf5;
+        box-shadow: none;
         transform: translateX(-102%);
         transition: transform 0.3s ease;
         z-index: 45;
@@ -1111,15 +1334,17 @@
       .hero-panel { border-radius: 26px; }
       .hero-copy { padding: 28px 22px; }
       .spring-feature {
-        display: block;
+        display: flex;
+        flex-direction: column;
         width: 100vw;
         margin-left: calc(50% - 50vw);
         margin-right: calc(50% - 50vw);
-        min-height: auto;
+        min-height: calc(100dvh - 56px);
         background: #ffffff;
       }
       .spring-media {
-        min-height: 38svh;
+        min-height: 43dvh;
+        flex: 0 0 43dvh;
         padding: 0;
         background: #f4efe8;
       }
@@ -1128,10 +1353,11 @@
         box-shadow: none;
       }
       .spring-copy {
-        min-height: auto;
+        flex: 1 1 auto;
+        min-height: 0;
         width: 100%;
         margin: 0;
-        padding: 26px 22px 30px;
+        padding: 28px 24px 34px;
         border-radius: 0;
         background: #ffffff;
         box-shadow: none;
@@ -1145,9 +1371,12 @@
         font-size: clamp(3rem, 14vw, 4.2rem);
       }
       .spring-text {
-        max-width: 11ch;
-        font-size: 0.98rem;
-        line-height: 1.75;
+        width: min(100%, 300px);
+        max-width: none;
+        margin: 0 auto;
+        font-size: 1.04rem;
+        line-height: 1.42;
+        text-wrap: pretty;
       }
       .hero-facts { grid-template-columns: 1fr; }
       .catalog,
@@ -1344,15 +1573,19 @@
       }
     }
     @media (max-width: 480px) {
+      .spring-feature {
+        min-height: calc(100dvh - 52px);
+      }
       .spring-media {
-        min-height: 31svh;
+        min-height: 42dvh;
+        flex-basis: 42dvh;
       }
       .spring-copy {
         padding: 22px 18px 26px;
       }
       .topbar {
         gap: 10px;
-        padding: 9px 10px;
+        padding: 9px 12px;
       }
       .topbar-link,
       .topbar-action {
@@ -1363,15 +1596,34 @@
         height: 38px;
       }
       .topbar-right {
-        gap: 8px;
+        gap: 10px;
       }
       .topbar-action {
-        width: 34px;
-        min-width: 34px;
-        height: 34px;
+        width: 28px;
+        min-width: 28px;
+        height: 28px;
       }
-      .topbar-action-emoji {
-        font-size: 1.15rem;
+      .topbar-action-icon {
+        width: 18px;
+        height: 18px;
+      }
+      .topbar-action-icon svg {
+        width: 18px;
+        height: 18px;
+      }
+      .topbar-logo {
+        width: 32px;
+        height: 32px;
+        font-size: 0.94rem;
+      }
+      .spring-copy {
+        padding: 24px 20px 28px;
+      }
+      .spring-text {
+        width: min(100%, 276px);
+        max-width: none;
+        font-size: 0.98rem;
+        line-height: 1.38;
       }
       .about-grid {
         grid-template-columns: 1fr;
@@ -1414,11 +1666,26 @@
 
       <div class="topbar-right">
         <a class="topbar-action" href="https://t.me/+LMHLw-S4AzA1Y2Ji" target="_blank" rel="noopener" aria-label="Онлайн консультація">
-          <span class="topbar-action-emoji" aria-hidden="true">🎧</span>
+          <span class="topbar-action-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4.5 12.5C4.5 7.8 7.8 4.5 12 4.5C16.2 4.5 19.5 7.8 19.5 12.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M5.2 12.2H7.2C7.9 12.2 8.4 12.7 8.4 13.4V16.2C8.4 16.9 7.9 17.4 7.2 17.4H6.1C5.2 17.4 4.5 16.7 4.5 15.8V12.9C4.5 12.5 4.8 12.2 5.2 12.2Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M18.8 12.2H16.8C16.1 12.2 15.6 12.7 15.6 13.4V16.2C15.6 16.9 16.1 17.4 16.8 17.4H17.9C18.8 17.4 19.5 16.7 19.5 15.8V12.9C19.5 12.5 19.2 12.2 18.8 12.2Z" stroke="currentColor" stroke-width="1.6"/>
+              <path d="M15.6 17.3C15.2 19 14 20 12.2 20H10.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M9.9 20H11.8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </span>
           <span class="topbar-action-label">Онлайн консультація</span>
         </a>
         <a class="topbar-action" href="/cart" aria-label="Кошик">
-          <span class="topbar-action-emoji" aria-hidden="true">🧺</span>
+          <span class="topbar-action-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6.2 7.2H20L18.7 15.1C18.6 15.8 18 16.3 17.3 16.3H8.8C8.1 16.3 7.5 15.8 7.4 15.1L6.2 7.2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="M6.2 7.2L5.8 5.1C5.7 4.5 5.2 4.1 4.6 4.1H3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M9.2 20.1C9.8 20.1 10.3 19.6 10.3 19C10.3 18.4 9.8 17.9 9.2 17.9C8.6 17.9 8.1 18.4 8.1 19C8.1 19.6 8.6 20.1 9.2 20.1Z" fill="currentColor"/>
+              <path d="M17.1 20.1C17.7 20.1 18.2 19.6 18.2 19C18.2 18.4 17.7 17.9 17.1 17.9C16.5 17.9 16 18.4 16 19C16 19.6 16.5 20.1 17.1 20.1Z" fill="currentColor"/>
+            </svg>
+          </span>
           <span class="topbar-action-label">Кошик (0)</span>
         </a>
       </div>
