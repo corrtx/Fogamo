@@ -616,6 +616,23 @@
       font-size: 1rem;
       animation: hintSlide 1.4s ease-in-out infinite;
     }
+    .scroll-hint-mobile {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 6px 0 14px;
+      color: var(--accent-dark);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .scroll-hint-mobile::after {
+      content: "→";
+      font-size: 1rem;
+      animation: hintSlide 1.4s ease-in-out infinite;
+    }
     .cards {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -1445,6 +1462,9 @@
         margin-bottom: 18px;
       }
       .scroll-hint {
+        display: none;
+      }
+      .scroll-hint-mobile {
         display: inline-flex;
       }
       .section-head p {
@@ -1774,6 +1794,7 @@
           </div>
           <p>Добірка бестселерів для денного настрою, вечірнього виходу та подарунка, який хочеться залишити собі.</p>
         </div>
+        <div class="scroll-hint-mobile">Листай вправо</div>
         <div class="cards">
           <article class="card">
             <div class="card-top"><span class="badge">Новинка</span><span class="price">2 390 грн</span></div>
